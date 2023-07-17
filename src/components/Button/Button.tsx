@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 
 export type ButtonProps = {
-  text: string;
+  text: string | null;
   onClick: () => void;
 };
 
@@ -10,7 +10,7 @@ const Button = ({
   onClick,
   children,
 }: PropsWithChildren<ButtonProps>) => {
-  return <button onClick={onClick}>{text ? text : children}</button>;
+  return <button onClick={onClick}>{text ? text : children}</button>
 };
 
 export default Button;

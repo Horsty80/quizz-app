@@ -1,33 +1,42 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import "./App.css";
 import Button from "./components/Button/Button";
-import viteLogo from "/vite.svg";
+import { trackApi } from "./services/track";
+import Card from "./components/Card/Card";
 
 function App() {
+  const [trigger, result] = trackApi.useLazyGetMockTrackQuery();
+  const [count, setCount] = useState(0);
+
   const handleClick = useCallback(() => {
-    console.log('click');
-  }, [])
+    trigger("", true);
+    setCount(count + 1);
+  }, [trigger, setCount, count]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-      </div>
+    <div>
       <div className="card">
-        <Button text="" onClick={handleClick}>
-          Create a Quizz
-        </Button>
-        <p>
-          Or
-        </p>
+        {result.isLoading && <Card label="Loading">Loading...</Card>}
+        {result.isError && <Card label="Error">Error!</Card>}
 
-        <Button text="" onClick={handleClick}>
-          Connect to a Quizz
-        </Button>
+        {result.isSuccess && (
+          <Card label="Success">
+            <div className="song__player">
+            {result.data.title} : <a href={result.data.preview}>Preview</a>
+            {/* maybe remove controls */}
+            <audio controls autoPlay>
+              <source src={result.data.preview} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+            </div>
+          </Card>
+        )}
       </div>
-    </>
+
+      <Button text="" onClick={handleClick}>
+        {count ? "Next song" : "Play song"}
+      </Button>
+    </div>
   );
 }
 
