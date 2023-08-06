@@ -7,7 +7,7 @@ export type CardProps = {
 function Card({ label, children }: PropsWithChildren<CardProps>) {
   return (
     <>
-      <span>{label}</span>
+      {label && <span>{label}</span>}
       <div>{children}</div>
     </>
   );

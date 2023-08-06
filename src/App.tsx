@@ -1,41 +1,91 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import Button from "./components/Button/Button";
 import { trackApi } from "./services/track";
 import Card from "./components/Card/Card";
+import TrackCard from "./components/Card/TrackCard";
+import { tracksId } from "./datas/staticTracks";
 
 function App() {
   const [trigger, result] = trackApi.useLazyGetMockTrackQuery();
   const [count, setCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isReveal, setIsReveal] = useState(false);
+  const [fullYear, setFullYear] = useState("????");
+
+  const revealYear = useCallback(() => {
+    setIsReveal(true);
+  }, []);
 
   const handleClick = useCallback(() => {
-    trigger("", true);
-    setCount(count + 1);
-  }, [trigger, setCount, count]);
+    setIsLoading(true);
+    setIsReveal(false);
+    if (count === tracksId.length) {
+      // reset
+      setCount(0);
+      trigger(tracksId[0]);
+      return;
+    }
+
+    trigger(tracksId[count]).then(() => {
+      setIsLoading(false);
+    });
+    setCount((prev) => prev + 1);
+  }, [count, trigger]);
+
+  useEffect(() => {
+    if (result.isSuccess && result.data) {
+      const date = new Date(result.data.release_date);
+      const year = date.getFullYear();
+      setFullYear(`${year}`);
+    }
+  }, [result])
+
 
   return (
     <div>
       <div className="card">
-        {result.isLoading && <Card label="Loading">Loading...</Card>}
+        {result.isLoading || (isLoading && <Card label="Loading">Loading...</Card>)}
         {result.isError && <Card label="Error">Error!</Card>}
 
-        {result.isSuccess && (
-          <Card label="Success">
-            <div className="song__player">
-            {result.data.title} : <a href={result.data.preview}>Preview</a>
-            {/* maybe remove controls */}
-            <audio controls autoPlay>
-              <source src={result.data.preview} type="audio/mpeg" />
-              Your browser does not support the audio element.
-            </audio>
-            </div>
-          </Card>
+        {result.isSuccess && result.data && (
+          <TrackCard
+            id={result.data.id}
+            album={result.data.album}
+            title={result.data.title}
+            preview={result.data.preview}
+          />
         )}
       </div>
 
-      <Button text="" onClick={handleClick}>
-        {count ? "Next song" : "Play song"}
-      </Button>
+      <div style={{ marginTop: "20px" }}>
+        {count > 0 && (
+          <>
+            <Button text="" onClick={revealYear}>
+              <span>Reveal year</span>
+            </Button>
+            <span style={{ padding: "20px" }}>or</span>
+          </>
+        )}
+        <Button text="" onClick={handleClick}>
+          {count ? "Next song" : "Play song"}
+        </Button>
+      </div>
+
+      <div>
+        {/* Show year response */}
+        {count > 0 && (
+          <>
+            <span style={{ padding: "20px", display: "flex", flexDirection: "column"  }}>
+              {" "}
+              <strong>Year:</strong>{" "}
+            </span>
+            <span style={{ padding: "20px", fontSize: "30px" }}>
+              {isReveal ? fullYear : "????"}
+            </span>
+          </>
+        )}
+      </div>
     </div>
   );
 }
