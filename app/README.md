@@ -1,19 +1,25 @@
-# Quizz App
+# Quizz App - How old are you ?
 
-## Device / Game controller
-- Answer with the smartphone
-
-## Simple question
-- User can create a quizz with multiple question
-- Players can access quizz to answer each question
+## Description
+This app is a quizz game where you have to guess the year of a song.
+If you are wrong, you will see how many years you are from the correct answer.
+The years representes your age in the game.
+The goal is to have the lowest score possible, so to be the youngest.
 
 ## Guess the Year
-- User can start a game session by linking with his spotify account
+- User can start a game session by linking with his deezer account
 - Players try to guess which year the song is 
+- On each wrong answer, a counter is incremented, it's represented years from the correct answer
+
+## Game modes
+- Dedicated playlist (user can choose a playlist) create by myself
+- User login and choose a playlist from his deezer account
 
 ## Tools
 - For design, i use [Radix UI](https://www.radix-ui.com/)
 - To build app on mobile, i use [Capacitor](https://capacitorjs.com/)
+- Router: [React Router](https://reactrouter.com/)
+- State management: [Redux toolkit](https://redux-toolkit.js.org/)
 
 ## Workflows
 
