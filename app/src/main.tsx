@@ -11,7 +11,7 @@ if (
   process.env.NODE_ENV === "development" &&
   typeof makeServer === "function"
 ) {
-  makeServer();
+  // makeServer();
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

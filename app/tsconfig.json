@@ -21,6 +21,6 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vitest/globals"]
   },
-  "include": ["src"],
+  "include": ["src", "deezer.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
