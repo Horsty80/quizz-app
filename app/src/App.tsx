@@ -1,6 +1,6 @@
+import { Button, Flex, Text } from "@radix-ui/themes";
 import { useState } from "react";
-
-// const userUrl = `http://localhost:3000/api/user/me?access_token=${accessToken}`;
+import "./App.css";
 
 function App() {
   const [user, setUser] = useState<DZ.User | null>(null);
@@ -23,15 +23,15 @@ function App() {
   };
 
   return (
-    <div>
-      {user ? (
-        <div>
-          <h1>{user.name}</h1>
-        </div>
-      ) : (
-        <button onClick={handleLogin}>Login with Deezer</button>
-      )}
-    </div>
+    <main>
+      <Flex align={"center"} justify={"center"}>
+        {user ? (
+          <Text align={"center"}>{user.name}</Text>
+        ) : (
+          <Button onClick={handleLogin}>Login with Deezer</Button>
+        )}
+      </Flex>
+    </main>
   );
 }
 
