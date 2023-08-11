@@ -1,5 +1,5 @@
 import { useRouteError, isRouteErrorResponse } from "react-router-dom";
-import { Button, Flex, Text } from "@radix-ui/themes";
+import { Button, Flex } from "@radix-ui/themes";
 
 export default function ErrorPage() {
   const error = useRouteError();

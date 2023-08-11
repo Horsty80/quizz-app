@@ -40,6 +40,7 @@ declare namespace DZ {
     }
 
   
+    function getLoginStatus(callback: (response: { authResponse: AuthResponse }) => void): void;
     function login(callback: (response: { authResponse?: AuthResponse }) => void, options: { perms: string }): void;
   
     function api<T>(path: string, callback: (response: T) => void): void;

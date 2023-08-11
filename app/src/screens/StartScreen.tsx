@@ -67,9 +67,9 @@ function StartScreen() {
                 {currentTrack.title}
               </Text>
             </Flex>
-            <audio controls>
+            <audio key={currentTrack.id} controls autoPlay>
               <source
-                src="https:\/\/cdns-preview-f.dzcdn.net\/stream\/c-fd3190510bfaa4c60fbd9102999fe45d-6.mp3"
+                src={currentTrack.preview}
                 type="audio/mpeg"
               />
               Your browser does not support the audio element.
