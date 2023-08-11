@@ -1,11 +1,22 @@
 import { Avatar, Flex, Text } from "@radix-ui/themes";
-import playlist from "../mocks/playlists.json";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function SelectPlaylistScreen() {
+    const [playlists, setPlaylists] = useState<DZ.Playlist[]>([]);
+    
+    useEffect(() => {
+    DZ.api<DZ.DeezerResponse<DZ.Playlist>>('user/me/playlists', function(response){
+        console.log(response);
+        if (response.data) {
+            setPlaylists(response.data);
+        }
+    });
+    }, []);
+
   return (
     <Flex gap={"9"}>
-      {playlist.data.map(({id, title, nb_tracks, picture_big}) => (
+      {playlists.map(({id, title, nb_tracks, picture_big}) => (
         <Link key={id} to={`/start/${id}`} style={{textDecoration: "none"}}>
           <Flex gap="3" align="center" direction={"column"}>
             <Avatar

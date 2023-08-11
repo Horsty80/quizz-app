@@ -10,7 +10,8 @@ declare namespace DZ {
     }
 
     interface DeezerResponse<T> {
-      data: T[]
+      data: T[];
+      total: number;
     }
 
     interface PlaylistTrack {
@@ -29,6 +30,13 @@ declare namespace DZ {
 
     interface Track {
       release_date: string;
+    }
+
+    interface Playlist {
+      id: string;
+      title: string;
+      picture_big: string;
+      nb_tracks: number;
     }
 
   

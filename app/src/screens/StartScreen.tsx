@@ -1,6 +1,6 @@
 import { Avatar, Flex, Text } from "@radix-ui/themes";
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useNavigation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RevealAnwser from "../components/RevealAnwser";
 
 function StartScreen() {

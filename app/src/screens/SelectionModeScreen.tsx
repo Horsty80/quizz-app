@@ -29,7 +29,7 @@ function SelectionModeScreen() {
       {(startTheGame || user) && <Navigate to="/start" replace={true} />}
       <Flex align={"center"} justify={"center"} direction={"column"} gap={"7"}>
         <Flex align={"start"} justify={"center"} gap={"5"}>
-          <Button size={"3"} onClick={() => setStartTheGame(true)}>
+          <Button disabled size={"3"} onClick={() => setStartTheGame(true)}>
             Use a random playlist
           </Button>
           <Flex align={"center"} justify={"center"} direction={"column"}>
